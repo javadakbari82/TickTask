@@ -42,10 +42,8 @@ class DataBaseServiceIsar extends DatabaseService {
 
   @override
   Future<List<TaskSchema>?> getTasks(DateTime dateTime) async {
-    List<TaskSchema> todayTasks = await _isar.taskSchemas
-        .filter()
-        .dateTimeEqualTo(DateTime.now())
-        .findAll();
+    List<TaskSchema> todayTasks =
+        await _isar.taskSchemas.filter().dateTimeEqualTo(dateTime).findAll();
     return todayTasks;
   }
 
