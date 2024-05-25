@@ -1,7 +1,7 @@
 import 'package:ticktask/feature/home_screen/data/local/schema/task_schema.dart';
 
 abstract class DatabaseService {
-  List<TaskSchema>? getTasks(DateTime dateTime);
+  Future<List<TaskSchema>?> getTasks(DateTime dateTime);
 
   void insertTask(TaskSchema task);
 

@@ -10,63 +10,49 @@ class DataBaseServiceIsar extends DatabaseService {
 
   @override
   void cancelTask(int id) async {
-    // TODO: implement cancelTask
     await _isar.writeTxn(() async {
-      TaskSchema canceledTask = (await _isar.taskSchemas.get(id))!;
-      canceledTask.isCancel = true;
-      return _isar.taskSchemas.put(canceledTask);
+      TaskSchema? canceledTask = await _isar.taskSchemas.get(id);
+      canceledTask?.isCancel = true;
+      await _isar.taskSchemas.put(canceledTask!);
     });
   }
 
   @override
   void deleteTask(int id) async {
-    // TODO: implement deleteTask
-    await _isar.writeTxn(() {
-      return _isar.taskSchemas.delete(id);
+    await _isar.writeTxn(() async {
+      await _isar.taskSchemas.delete(id);
     });
   }
 
   @override
   void doneTask(int id) async {
-    // TODO: implement doneTask
     await _isar.writeTxn(() async {
-      TaskSchema doneTask = (await _isar.taskSchemas.get(id))!;
-      doneTask.isNote = true;
-
-      return _isar.taskSchemas.put(doneTask);
+      TaskSchema? doneTask = await _isar.taskSchemas.get(id);
+      doneTask?.isNote = true;
+      await _isar.taskSchemas.put(doneTask!);
     });
   }
 
   @override
   void editTask(TaskSchema task) async {
-    // TODO: implement editTask
     await _isar.writeTxn(() async {
-      TaskSchema oldTask = (await _isar.taskSchemas.get(task.id))!;
-      oldTask
-        ..id = Isar.autoIncrement
-        ..name = task.name
-        ..describe = task.describe
-        ..project.value = task.project.value
-        ..priority = task.priority
-        ..dateTime = task.dateTime
-        ..reminder = task.reminder
-        ..checkList = task.checkList
-        ..tags.addAll(task.tags)
-        ..isNote = task.isNote
-        ..isDone = task.isDone
-        ..isCancel = task.isCancel;
-      return _isar.taskSchemas.put(oldTask);
+      await _isar.taskSchemas.put(task);
     });
   }
 
   @override
-  List<TaskSchema>? getTasks(DateTime dateTime) {
-    // TODO: implement getTasks
-    throw UnimplementedError();
+  Future<List<TaskSchema>?> getTasks(DateTime dateTime) async {
+    List<TaskSchema> todayTasks = await _isar.taskSchemas
+        .filter()
+        .dateTimeEqualTo(DateTime.now())
+        .findAll();
+    return todayTasks;
   }
 
   @override
-  void insertTask(TaskSchema task) {
-    // TODO: implement insertTask
+  Future<void> insertTask(TaskSchema task) async {
+    await _isar.writeTxn(() async {
+      await _isar.taskSchemas.put(task);
+    });
   }
 }
