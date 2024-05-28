@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticktask/colors.dart';
 import 'package:ticktask/feature/home_screen/presentation/widgets/bottom_navigation_widget.dart';
+import 'package:ticktask/feature/home_screen/presentation/widgets/date_picker_widget.dart';
 
 import 'home_controller.dart';
 
@@ -37,7 +38,7 @@ class HomeScreen extends GetView<HomeController> {
             style: TextStyle(color: SolidColors.actionsAppBarrColor),
           ),
           backgroundColor: SolidColors.bgAppBarColor),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [Text("data")],
@@ -65,9 +66,10 @@ class HomeScreen extends GetView<HomeController> {
         ),
         onPressed: () {},
       ),
-      bottomNavigationBar: Column(
+      bottomNavigationBar: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          DatePickerWidget(),
           BottomNavigationWidget(),
         ],
       ),
