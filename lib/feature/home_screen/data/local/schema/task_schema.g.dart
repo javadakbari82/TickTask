@@ -56,7 +56,7 @@ const TaskSchemaSchema = CollectionSchema(
     r'priority': PropertySchema(
       id: 7,
       name: r'priority',
-      type: IsarType.bool,
+      type: IsarType.long,
     ),
     r'reminder': PropertySchema(
       id: 8,
@@ -144,7 +144,7 @@ void _taskSchemaSerialize(
   writer.writeBool(offsets[4], object.isDone);
   writer.writeBool(offsets[5], object.isNote);
   writer.writeString(offsets[6], object.name);
-  writer.writeBool(offsets[7], object.priority);
+  writer.writeLong(offsets[7], object.priority);
   writer.writeBool(offsets[8], object.reminder);
 }
 
@@ -168,7 +168,7 @@ TaskSchema _taskSchemaDeserialize(
   object.isDone = reader.readBoolOrNull(offsets[4]);
   object.isNote = reader.readBoolOrNull(offsets[5]);
   object.name = reader.readStringOrNull(offsets[6]);
-  object.priority = reader.readBoolOrNull(offsets[7]);
+  object.priority = reader.readLongOrNull(offsets[7]);
   object.reminder = reader.readBoolOrNull(offsets[8]);
   return object;
 }
@@ -200,7 +200,7 @@ P _taskSchemaDeserializeProp<P>(
     case 6:
       return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 8:
       return (reader.readBoolOrNull(offset)) as P;
     default:
@@ -929,11 +929,55 @@ extension TaskSchemaQueryFilter
   }
 
   QueryBuilder<TaskSchema, TaskSchema, QAfterFilterCondition> priorityEqualTo(
-      bool? value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'priority',
         value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskSchema, TaskSchema, QAfterFilterCondition>
+      priorityGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'priority',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskSchema, TaskSchema, QAfterFilterCondition> priorityLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'priority',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskSchema, TaskSchema, QAfterFilterCondition> priorityBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'priority',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1364,7 +1408,7 @@ extension TaskSchemaQueryProperty
     });
   }
 
-  QueryBuilder<TaskSchema, bool?, QQueryOperations> priorityProperty() {
+  QueryBuilder<TaskSchema, int?, QQueryOperations> priorityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'priority');
     });

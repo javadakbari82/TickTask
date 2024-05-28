@@ -12,7 +12,7 @@ class TaskSchema {
   final project = IsarLink<ProjectSchema>();
   DateTime? dateTime;
   bool? reminder;
-  bool? priority;
+  int? priority;
   List<CheckListSchema>? checkList;
   bool? isDone;
   bool? isCancel;
