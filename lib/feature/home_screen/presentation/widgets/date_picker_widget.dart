@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../colors.dart';
 
-typedef OnDateChangeCallBack = void Function(DateTime selectedDate);
-
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({
     super.key,
-    this.onDateChange,
+    required this.getDate,
   });
-
-  final OnDateChangeCallBack? onDateChange;
-
+  final Function(DateTime selectedTime) getDate;
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }
@@ -29,34 +25,40 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           initialDate: DateTime.now(),
           onDateChange: (selectedDate) {
             //`selectedDate` the new date selected.
-            print(selectedDate.toString());
+            // print(selectedDate.toString());
+            widget.getDate(selectedDate);
           },
           headerProps: const EasyHeaderProps(
             monthPickerType: MonthPickerType.switcher,
             dateFormatter: DateFormatter.fullDateDMY(),
             centerHeader: false,
-            monthStyle: TextStyle(color: Colors.white),
+            monthStyle: TextStyle(color: SolidColors.contentDatePickerColor),
             showMonthPicker: true,
             showSelectedDate: true,
-            selectedDateStyle: TextStyle(color: Colors.white),
+            selectedDateStyle:
+                TextStyle(color: SolidColors.contentDatePickerColor),
           ),
           dayProps: const EasyDayProps(
-            inactiveDayStrStyle: TextStyle(color: Colors.white),
-            inactiveDayNumStyle: TextStyle(color: Colors.white),
-            borderColor: SolidColors.activationBottomNavigationBarColor,
+            todayStyle: DayStyle(
+                dayNumStyle:
+                    TextStyle(color: SolidColors.contentDatePickerColor),
+                monthStrStyle:
+                    TextStyle(color: SolidColors.contentDatePickerColor)),
+            inactiveDayStyle: DayStyle(
+                dayStrStyle:
+                    TextStyle(color: SolidColors.contentDatePickerColor),
+                dayNumStyle:
+                    TextStyle(color: SolidColors.contentDatePickerColor)),
+            borderColor: SolidColors.contentDatePickerColor,
             landScapeMode: true,
             dayStructure: DayStructure.dayStrDayNum,
             activeDayStyle: DayStyle(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff3371FF),
-                    Color(0xff8426D6),
-                  ],
-                ),
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: GradiantColors.selectedDay),
               ),
             ),
           ),

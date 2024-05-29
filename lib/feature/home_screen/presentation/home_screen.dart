@@ -13,37 +13,63 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.search,
-                color: SolidColors.actionsAppBarrColor,
-              ),
-              onPressed: () {
-                // do something
-              },
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.more_horiz,
-                color: SolidColors.actionsAppBarrColor,
-              ),
-              onPressed: () {
-                // do something
-              },
-            ),
-          ],
-          title: const Text(
-            "TickTask",
-            style: TextStyle(color: SolidColors.actionsAppBarrColor),
+            onPressed: () {
+              // do something
+            },
           ),
-          backgroundColor: SolidColors.bgAppBarColor),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [Text("data")],
+          IconButton(
+            icon: const Icon(
+              Icons.more_horiz,
+            ),
+            onPressed: () {
+              // do something
+            },
+          ),
+        ],
+        title: const Text(
+          "TickTask",
         ),
       ),
+      body: const Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // ElevatedButton(
+          //   onPressed: () {
+          //     var mytask = TaskSchema()
+          //       ..id = Isar.autoIncrement
+          //       ..dateTime = controller.selectedTime.value
+          //       ..isCancel = false
+          //       ..isDone = false
+          //       ..isNote = false
+          //       ..reminder = true
+          //       ..checkList = [
+          //         CheckListSchema()
+          //           ..name = "first check list"
+          //           ..isDone = false
+          //           ..isCancel = false
+          //       ]
+          //       ..describe = "first task describe"
+          //       ..name = "first task";
+          //     controller.insertTask(mytask);
+          //   },
+          //   child: const Text('insert task'),
+          // ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     print(controller.selectedTime.value);
+          //     controller.getTasks(controller.selectedTime.value);
+          //   },
+          //   child: const Text('get tasks'),
+          // ),
+          Text("data"),
+        ],
+      )),
       floatingActionButton: FloatingActionButton(
         child: Container(
           width: double.infinity,
@@ -51,26 +77,24 @@ class HomeScreen extends GetView<HomeController> {
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(16)),
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xff3371FF),
-                Color(0xff8426D6),
-              ],
-            ),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: GradiantColors.selectedDay),
           ),
           child: const Icon(
             Icons.add,
-            color: Colors.white70,
+            color: SolidColors.actionsAppBarrColor,
           ),
         ),
         onPressed: () {},
       ),
-      bottomNavigationBar: const Column(
+      bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DatePickerWidget(),
-          BottomNavigationWidget(),
+          DatePickerWidget(getDate: (DateTime selectedTime) {
+            controller.selectedTime.value = selectedTime;
+          }),
+          const BottomNavigationWidget(),
         ],
       ),
     );

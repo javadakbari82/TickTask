@@ -1,4 +1,4 @@
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 
 import '../data/local/schema/task_schema.dart';
 import '../data/repository/home_repository.dart';
@@ -6,9 +6,18 @@ import '../data/repository/home_repository.dart';
 class HomeController extends GetxController {
   HomeRepository localRepository;
   HomeController(this.localRepository);
+  var selectedTime =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
+          .obs;
 
   Future<List<TaskSchema>?> getTasks(DateTime dateTime) {
     Future<List<TaskSchema>?> tasks = localRepository.getTasks(dateTime);
+    // tasks.then((value) {
+    //   if (value!.isEmpty)
+    //     print("empty");
+    //   else
+    //     print(value?[0].name);
+    // });
     return tasks;
   }
 
