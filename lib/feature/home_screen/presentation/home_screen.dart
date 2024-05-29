@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ticktask/colors.dart';
 import 'package:ticktask/feature/home_screen/presentation/widgets/bottom_navigation_widget.dart';
 import 'package:ticktask/feature/home_screen/presentation/widgets/date_picker_widget.dart';
+import 'package:timelines/timelines.dart';
 
 import 'home_controller.dart';
 
@@ -35,41 +36,43 @@ class HomeScreen extends GetView<HomeController> {
           "TickTask",
         ),
       ),
-      body: const Center(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // ElevatedButton(
-          //   onPressed: () {
-          //     var mytask = TaskSchema()
-          //       ..id = Isar.autoIncrement
-          //       ..dateTime = controller.selectedTime.value
-          //       ..isCancel = false
-          //       ..isDone = false
-          //       ..isNote = false
-          //       ..reminder = true
-          //       ..checkList = [
-          //         CheckListSchema()
-          //           ..name = "first check list"
-          //           ..isDone = false
-          //           ..isCancel = false
-          //       ]
-          //       ..describe = "first task describe"
-          //       ..name = "first task";
-          //     controller.insertTask(mytask);
-          //   },
-          //   child: const Text('insert task'),
-          // ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     print(controller.selectedTime.value);
-          //     controller.getTasks(controller.selectedTime.value);
-          //   },
-          //   child: const Text('get tasks'),
-          // ),
-          Text("data"),
-        ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Obx(() {
+                return FixedTimeline.tileBuilder(
+                  builder: TimelineTileBuilder.connected(
+                    itemCount: controller
+                        .tasks.length, // Assuming you have a list of tasks
+                    contentsBuilder: (context, index) {
+                      var task = controller.tasks[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          task.name!,
+                          style: const TextStyle(color: Colors.white),
+                        ), // Display task name
+                      );
+                    },
+                    connectorBuilder: (context, index, type) {
+                      return const SolidLineConnector();
+                    },
+                    indicatorBuilder: (context, index) {
+                      return const OutlinedDotIndicator(
+                        color: Colors.blue,
+                        child: Icon(Icons.check,
+                            color: Colors.white), // Example indicator
+                      );
+                    },
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Container(
           width: double.infinity,
@@ -93,6 +96,9 @@ class HomeScreen extends GetView<HomeController> {
         children: [
           DatePickerWidget(getDate: (DateTime selectedTime) {
             controller.selectedTime.value = selectedTime;
+            controller.getTasks(controller.selectedTime.value).then((value) {
+              controller.tasks.value = value!;
+            });
           }),
           const BottomNavigationWidget(),
         ],

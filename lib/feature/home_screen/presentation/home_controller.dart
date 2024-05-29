@@ -9,6 +9,15 @@ class HomeController extends GetxController {
   var selectedTime =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
           .obs;
+  RxList<TaskSchema> tasks = RxList([]);
+
+  @override
+  void onInit() {
+    super.onInit();
+    getTasks(selectedTime.value).then((value) {
+      tasks.value = value!;
+    });
+  }
 
   Future<List<TaskSchema>?> getTasks(DateTime dateTime) {
     Future<List<TaskSchema>?> tasks = localRepository.getTasks(dateTime);
