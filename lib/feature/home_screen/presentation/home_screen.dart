@@ -46,13 +46,27 @@ class HomeScreen extends GetView<HomeController> {
                   builder: TimelineTileBuilder.connected(
                     itemCount: controller
                         .tasks.length, // Assuming you have a list of tasks
+                    // connectionDirection: ConnectionDirection.before,
+
                     contentsBuilder: (context, index) {
                       var task = controller.tasks[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          task.name!,
-                          style: const TextStyle(color: Colors.white),
+                        child: Column(
+                          children: [
+                            Text(
+                              task.name!,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              task.dateTime.toString(),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              task.describe!,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ), // Display task name
                       );
                     },
@@ -60,11 +74,38 @@ class HomeScreen extends GetView<HomeController> {
                       return const SolidLineConnector();
                     },
                     indicatorBuilder: (context, index) {
-                      return const OutlinedDotIndicator(
-                        color: Colors.blue,
-                        child: Icon(Icons.check,
-                            color: Colors.white), // Example indicator
-                      );
+                      return GestureDetector(onTap: () {
+                        controller.toggleDone(index);
+                        controller
+                            .getTasks(controller.selectedTime)
+                            .then((value) {
+                          controller.tasks.value = value!;
+                        });
+                      }, onLongPress: () {
+                        controller.toggleCancel(index);
+                        controller
+                            .getTasks(controller.selectedTime)
+                            .then((value) {
+                          controller.tasks.value = value!;
+                        });
+                      }, child: Obx(() {
+                        var task = controller.tasks[index];
+                        if (task.isCancel!) {
+                          return const DotIndicator(
+                            color: Colors.grey,
+                            child: Icon(Icons.cancel_outlined),
+                          );
+                        } else if (task.isDone!) {
+                          return const DotIndicator(
+                            color: Colors.blue,
+                            child: Icon(Icons.check, color: Colors.white),
+                          );
+                        } else {
+                          return const OutlinedDotIndicator(
+                            color: Colors.grey,
+                          );
+                        }
+                      }));
                     },
                   ),
                 );
@@ -95,8 +136,8 @@ class HomeScreen extends GetView<HomeController> {
         mainAxisSize: MainAxisSize.min,
         children: [
           DatePickerWidget(getDate: (DateTime selectedTime) {
-            controller.selectedTime.value = selectedTime;
-            controller.getTasks(controller.selectedTime.value).then((value) {
+            controller.selectedTime = selectedTime;
+            controller.getTasks(controller.selectedTime).then((value) {
               controller.tasks.value = value!;
             });
           }),

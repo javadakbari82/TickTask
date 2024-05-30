@@ -28,7 +28,7 @@ class DataBaseServiceIsar extends DatabaseService {
   void doneTask(int id) async {
     await _isar.writeTxn(() async {
       TaskSchema? doneTask = await _isar.taskSchemas.get(id);
-      doneTask?.isNote = true;
+      doneTask?.isDone = true;
       await _isar.taskSchemas.put(doneTask!);
     });
   }

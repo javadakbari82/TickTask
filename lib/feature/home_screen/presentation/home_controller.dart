@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 
 import '../data/local/schema/task_schema.dart';
@@ -7,26 +9,40 @@ class HomeController extends GetxController {
   HomeRepository localRepository;
   HomeController(this.localRepository);
   var selectedTime =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
-          .obs;
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   RxList<TaskSchema> tasks = RxList([]);
 
   @override
   void onInit() {
     super.onInit();
-    getTasks(selectedTime.value).then((value) {
+    getTasks(selectedTime).then((value) {
       tasks.value = value!;
     });
   }
 
+  void toggleDone(int index) {
+    if (tasks[index].isCancel == false) {
+      if (tasks[index].isDone == true) {
+        tasks[index].isDone = false;
+      } else {
+        tasks[index].isDone = true;
+      }
+      editTask(tasks[index]);
+    }
+  }
+
+  void toggleCancel(int index) {
+    if (tasks[index].isCancel == true) {
+      tasks[index].isCancel = false;
+    } else {
+      tasks[index].isCancel = true;
+      tasks[index].isDone = false;
+    }
+    editTask(tasks[index]);
+  }
+
   Future<List<TaskSchema>?> getTasks(DateTime dateTime) {
     Future<List<TaskSchema>?> tasks = localRepository.getTasks(dateTime);
-    // tasks.then((value) {
-    //   if (value!.isEmpty)
-    //     print("empty");
-    //   else
-    //     print(value?[0].name);
-    // });
     return tasks;
   }
 
