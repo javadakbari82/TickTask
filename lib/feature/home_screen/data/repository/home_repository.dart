@@ -13,5 +13,5 @@ abstract class HomeRepository {
 
   void doneTask(int id);
 
-// Stream<List<Task>> tasks();
+  Stream<void> tasks();
 }

@@ -24,8 +24,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         child: EasyDateTimeLine(
           initialDate: DateTime.now(),
           onDateChange: (selectedDate) {
-            //`selectedDate` the new date selected.
-            // print(selectedDate.toString());
             widget.getDate(selectedDate);
           },
           headerProps: const EasyHeaderProps(

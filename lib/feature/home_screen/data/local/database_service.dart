@@ -13,5 +13,5 @@ abstract class DatabaseService {
 
   void doneTask(int id);
 
-  // Stream<List<Task>> tasks();
+  Stream<void> tasks();
 }

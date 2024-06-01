@@ -53,4 +53,9 @@ class DataBaseServiceIsar extends DatabaseService {
       await _isar.taskSchemas.put(task);
     });
   }
+
+  @override
+  Stream<void> tasks() {
+    return _isar.taskSchemas.watchLazy();
+  }
 }
