@@ -42,7 +42,10 @@ class MyApp extends StatelessWidget {
       //       .copyWith(background: SolidColors.mainBodyColor),
       // ),
       getPages: [
-        GetPage(name: "/home", page: () => HomeScreen(), binding: HomeBinding())
+        GetPage(
+            name: "/home",
+            page: () => const HomeScreen(),
+            binding: HomeBinding())
       ],
       initialRoute: "/home",
       // initialBinding: HomeBinding(),

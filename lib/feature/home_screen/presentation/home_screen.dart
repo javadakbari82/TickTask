@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:ticktask/colors.dart';
 import 'package:ticktask/feature/home_screen/presentation/widgets/bottom_navigation_widget.dart';
@@ -48,36 +49,88 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: GradiantColors.selectedDay),
-          ),
-          child: const Icon(
-            Icons.add,
-            color: SolidColors.actionsAppBarrColor,
-          ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        activeIcon: Icons.close,
+        visible: true,
+        closeManually: false,
+        renderOverlay: true,
+        overlayOpacity: 0.6,
+        overlayColor: const Color.fromARGB(255, 26, 27, 31),
+        shape: const CircleBorder(),
+        gradientBoxShape: BoxShape.values.last,
+        gradient: const LinearGradient(
+          colors: GradiantColors.selectedDay,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        onPressed: () {
-          // var task = TaskSchema()
-          //   ..name = "task2"
-          //   ..describe = "desc 2"
-          //   ..dateTime = controller.selectedTime
-          //   ..isDone = false
-          //   ..isCancel = false
-          //   ..id = Isar.autoIncrement
-          //   ..reminder = true
-          //   ..isNote = false
-          //   ..priority = 1;
-          // controller.insertTask(task);
-        },
+        childPadding: const EdgeInsets.fromLTRB(2, 8, 8, 8),
+        children: [
+          SpeedDialChild(
+            child: const Icon(
+              Icons.task_outlined,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.blue,
+            label: 'Task',
+            labelStyle: const TextStyle(color: Colors.white),
+            labelBackgroundColor: const Color.fromARGB(255, 33, 150, 243),
+            onTap: () => print('First option selected'),
+          ),
+          SpeedDialChild(
+            child: const Icon(
+              Icons.note_alt_outlined,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.blue,
+            label: 'Note',
+            labelStyle: const TextStyle(color: Colors.white),
+            labelBackgroundColor: const Color.fromARGB(255, 33, 150, 243),
+            onTap: () => print('First option selected'),
+          ),
+          SpeedDialChild(
+            child: const Icon(
+              Icons.loop_outlined,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.blue,
+            label: 'Repeating',
+            labelStyle: const TextStyle(color: Colors.white),
+            labelBackgroundColor: const Color.fromARGB(255, 33, 150, 243),
+            onTap: () => print('First option selected'),
+          ),
+        ],
       ),
+      // FloatingActionButton(
+      //   child: Container(
+      //     width: double.infinity,
+      //     height: double.infinity,
+      //     decoration: const BoxDecoration(
+      //       borderRadius: BorderRadius.all(Radius.circular(16)),
+      //       gradient: LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: GradiantColors.selectedDay),
+      //     ),
+      //     child: const Icon(
+      //       Icons.add,
+      //       color: SolidColors.actionsAppBarrColor,
+      //     ),
+      //   ),
+      //   onPressed: () {
+      //     // var task = TaskSchema()
+      //     //   ..name = "task2"
+      //     //   ..describe = "desc 2"
+      //     //   ..dateTime = controller.selectedTime
+      //     //   ..isDone = false
+      //     //   ..isCancel = false
+      //     //   ..id = Isar.autoIncrement
+      //     //   ..reminder = true
+      //     //   ..isNote = false
+      //     //   ..priority = 1;
+      //     // controller.insertTask(task);
+      //   },
+      // ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -21,11 +21,21 @@ FixedTimeline buildFixedTimeline(HomeController controller) {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 task.name!,
                 style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                task.describe!,
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              const SizedBox(
+                height: 3,
               ),
               Row(
                 children: [
