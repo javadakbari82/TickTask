@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:ticktask/feature/home_screen/presentation/home_binding.dart';
-import 'package:ticktask/feature/home_screen/presentation/home_screen.dart';
+import 'package:ticktask/config/routers.dart';
 import 'package:ticktask/themes.dart';
 
 import 'feature/home_screen/data/local/schema/project_schema.dart';
@@ -41,12 +40,8 @@ class MyApp extends StatelessWidget {
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
       //       .copyWith(background: SolidColors.mainBodyColor),
       // ),
-      getPages: [
-        GetPage(
-            name: "/home",
-            page: () => const HomeScreen(),
-            binding: HomeBinding())
-      ],
+
+      getPages: pages,
       initialRoute: "/home",
       // initialBinding: HomeBinding(),
       // home: const HomeScreen()

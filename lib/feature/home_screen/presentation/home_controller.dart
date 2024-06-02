@@ -12,9 +12,6 @@ class HomeController extends GetxController {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   RxList<TaskSchema> tasks = RxList([]);
 
-  // Stream<void> taskChanged = _isar.taskSchemas.watchLazy();
-  // taskChanged.listen(() {});
-
   @override
   void onInit() {
     super.onInit();
