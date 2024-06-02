@@ -59,10 +59,6 @@ class HomeController extends GetxController {
     return tasks;
   }
 
-  void insertTask(TaskSchema task) {
-    localRepository.insertTask(task);
-  }
-
   void editTask(TaskSchema task) {
     localRepository.editTask(task);
   }

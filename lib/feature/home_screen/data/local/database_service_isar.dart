@@ -48,13 +48,6 @@ class DataBaseServiceIsar extends DatabaseService {
   }
 
   @override
-  Future<void> insertTask(TaskSchema task) async {
-    await _isar.writeTxn(() async {
-      await _isar.taskSchemas.put(task);
-    });
-  }
-
-  @override
   Stream<void> tasks() {
     return _isar.taskSchemas.watchLazy();
   }

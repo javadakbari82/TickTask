@@ -34,11 +34,6 @@ class HomeRepositoryLocal extends HomeRepository {
   }
 
   @override
-  void insertTask(TaskSchema task) {
-    _databaseService.insertTask(task);
-  }
-
-  @override
   Stream<void> tasks() {
     return _databaseService.tasks();
   }
