@@ -3,10 +3,10 @@ import 'package:ticktask/feature/create_task_screen/data/local/database_service.
 
 import '../../../home_screen/data/local/schema/task_schema.dart';
 
-class DataBaseServiceIsar extends DatabaseService {
+class CreateTaskDataBaseServiceIsar extends CreateTaskDatabaseService {
   final Isar _isar;
 
-  DataBaseServiceIsar(this._isar);
+  CreateTaskDataBaseServiceIsar(this._isar);
   @override
   Future<void> insertTask(TaskSchema task) async {
     await _isar.writeTxn(() async {

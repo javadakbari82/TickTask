@@ -3,10 +3,10 @@ import 'package:ticktask/feature/home_screen/data/local/schema/task_schema.dart'
 
 import 'database_service.dart';
 
-class DataBaseServiceIsar extends DatabaseService {
+class HomePageDataBaseServiceIsar extends HomePageDatabaseService {
   final Isar _isar;
 
-  DataBaseServiceIsar(this._isar);
+  HomePageDataBaseServiceIsar(this._isar);
 
   @override
   void cancelTask(int id) async {

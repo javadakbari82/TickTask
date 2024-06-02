@@ -9,7 +9,7 @@ import 'home_controller.dart';
 class HomeBinding extends Bindings {
   @override
   Future<void> dependencies() async {
-    Get.put<DatabaseService>(DataBaseServiceIsar(Get.find()));
+    Get.put<HomePageDatabaseService>(HomePageDataBaseServiceIsar(Get.find()));
     Get.put<HomeRepository>(HomeRepositoryLocal(Get.find()));
     Get.put<HomeController>(HomeController(Get.find()));
   }

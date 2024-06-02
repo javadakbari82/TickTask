@@ -4,7 +4,7 @@ import 'package:ticktask/feature/home_screen/data/repository/home_repository.dar
 import '../local/database_service.dart';
 
 class HomeRepositoryLocal extends HomeRepository {
-  final DatabaseService _databaseService;
+  final HomePageDatabaseService _databaseService;
 
   HomeRepositoryLocal(this._databaseService);
   @override
