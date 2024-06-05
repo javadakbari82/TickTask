@@ -16,6 +16,7 @@ class Themes {
           unselectedItemColor:
               SolidColors.unselectedActivationBottomNavigationBarColor),
       appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: SolidColors.actionsAppBarrColor),
           backgroundColor: SolidColors.mainBodyColor,
           actionsIconTheme:
               IconThemeData(color: SolidColors.actionsAppBarrColor),

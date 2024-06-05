@@ -75,7 +75,8 @@ class HomeScreen extends GetView<HomeController> {
             label: 'Task',
             labelStyle: const TextStyle(color: Colors.white),
             labelBackgroundColor: const Color.fromARGB(255, 33, 150, 243),
-            onTap: () => print('First option selected'),
+            onTap: () =>
+                Get.toNamed('/create_task', arguments: controller.selectedTime),
           ),
           SpeedDialChild(
             child: const Icon(
