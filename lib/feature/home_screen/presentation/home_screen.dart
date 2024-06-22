@@ -102,36 +102,6 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ],
       ),
-      // FloatingActionButton(
-      //   child: Container(
-      //     width: double.infinity,
-      //     height: double.infinity,
-      //     decoration: const BoxDecoration(
-      //       borderRadius: BorderRadius.all(Radius.circular(16)),
-      //       gradient: LinearGradient(
-      //           begin: Alignment.topCenter,
-      //           end: Alignment.bottomCenter,
-      //           colors: GradiantColors.selectedDay),
-      //     ),
-      //     child: const Icon(
-      //       Icons.add,
-      //       color: SolidColors.actionsAppBarrColor,
-      //     ),
-      //   ),
-      //   onPressed: () {
-      //     // var task = TaskSchema()
-      //     //   ..name = "task2"
-      //     //   ..describe = "desc 2"
-      //     //   ..dateTime = controller.selectedTime
-      //     //   ..isDone = false
-      //     //   ..isCancel = false
-      //     //   ..id = Isar.autoIncrement
-      //     //   ..reminder = true
-      //     //   ..isNote = false
-      //     //   ..priority = 1;
-      //     // controller.insertTask(task);
-      //   },
-      // ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
