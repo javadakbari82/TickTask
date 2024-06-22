@@ -11,7 +11,8 @@ class CreateTaskController extends GetxController {
   var argumentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
           .obs;
-
+  var priorityValue = 4.obs;
+  var switchValue = false.obs;
   late TextEditingController editingTaskNameController;
   late TextEditingController editingTaskDescriptionController;
   late TextEditingController editingProjectNameController;

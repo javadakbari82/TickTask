@@ -46,7 +46,7 @@ class CreateTaskScreen extends GetView<CreateTaskController> {
                               fontSize: 18)),
                     )),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(marginPage, 10, marginPage, 8),
+                    padding: EdgeInsets.fromLTRB(marginPage, 5, marginPage, 8),
                     child: TextFormField(
                       maxLength: 32,
                       cursorColor: Colors.white,
@@ -336,7 +336,7 @@ class CreateTaskScreen extends GetView<CreateTaskController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(marginPage, 8, marginPage, 2),
+                  padding: EdgeInsets.fromLTRB(marginPage, 5, marginPage, 8),
                   child: SizedBox(
                     height: size.height / 14,
                     child: ElevatedButton(
@@ -350,11 +350,13 @@ class CreateTaskScreen extends GetView<CreateTaskController> {
                             minimumSize: const Size(double.infinity, 40)),
                         child: Obx(() {
                           return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              const SizedBox(
+                                width: 5,
+                              ),
                               const Icon(Icons.date_range_sharp),
                               Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding: const EdgeInsets.only(left: 8),
                                   child: Text(
                                     "Date: ${controller.argumentDate.value.year} : ${controller.argumentDate.value.month} : ${controller.argumentDate.value.day}",
                                     style: const TextStyle(
@@ -362,7 +364,7 @@ class CreateTaskScreen extends GetView<CreateTaskController> {
                                         fontSize: 16),
                                   )),
                               Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding: const EdgeInsets.only(left: 30),
                                   child: Text(
                                     "Time: ${controller.argumentDate.value.hour} : ${controller.argumentDate.value.minute}",
                                     style: const TextStyle(
@@ -385,11 +387,211 @@ class CreateTaskScreen extends GetView<CreateTaskController> {
                         }),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(marginPage, 5, marginPage, 8),
+                  child: SizedBox(
+                    height: size.height / 14,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: SolidColors.bgBottomNavigationBarColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          const Icon(
+                            Icons.watch_later_outlined,
+                            color: Color.fromARGB(255, 111, 67, 192),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                "Reminder:",
+                                style: TextStyle(
+                                    color: SolidColors.actionsAppBarrColor,
+                                    fontSize: 16),
+                              )),
+                          const SizedBox(
+                            width: 130,
+                          ),
+                          Obx(
+                            () {
+                              return Switch(
+                                  value: controller.switchValue.value,
+                                  onChanged: (value) {
+                                    controller.switchValue.value = value;
+                                  });
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(marginPage, 5, marginPage, 8),
+                  child: SizedBox(
+                    height: size.height / 14,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          backgroundColor:
+                              SolidColors.bgBottomNavigationBarColor,
+                          disabledForegroundColor: SolidColors.mainBodyColor,
+                          minimumSize: const Size(double.infinity, 40)),
+                      child: Obx(() {
+                        return Row(
+                          children: [
+                            if (controller.priorityValue.value == 4) ...[
+                              const Icon(Icons.add),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  "Set priority",
+                                  style: TextStyle(
+                                      color: SolidColors.actionsAppBarrColor,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ] else ...[
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.flag),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: Text(
+                                          mapPriority(
+                                              controller.priorityValue.value),
+                                          style: const TextStyle(
+                                              color: SolidColors
+                                                  .actionsAppBarrColor,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ))
+                            ]
+                          ],
+                        );
+                      }),
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: size.height / 2,
+                              color: SolidColors.bgBottomNavigationBarColor,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    marginPage, 20, marginPage, 12),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Select a Priority',
+                                              style: TextStyle(
+                                                  color: SolidColors
+                                                      .actionsAppBarrColor,
+                                                  fontSize: 20),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: ListView.builder(
+                                            padding: const EdgeInsets.all(8),
+                                            itemCount: 5,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      controller.priorityValue
+                                                          .value = index;
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      width: size.width / 4,
+                                                      decoration: const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          color: SolidColors
+                                                              .mainBodyColor),
+                                                      child: Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .fromLTRB(
+                                                                  16, 8, 8, 8),
+                                                          child: Text(
+                                                            mapPriority(index),
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  String mapPriority(int priorityNum) {
+    if (priorityNum == 0) {
+      return "Low";
+    } else if (priorityNum == 1) {
+      return "Medium";
+    } else if (priorityNum == 2) {
+      return "High";
+    } else if (priorityNum == 3) {
+      return "Urgent";
+    } else {
+      return "No Parity";
+    }
   }
 }
