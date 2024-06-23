@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:ticktask/feature/create_task_screen/data/repository/create_task_repository.dart';
 import 'package:ticktask/feature/home_screen/data/local/schema/project_schema.dart';
+import 'package:ticktask/feature/home_screen/data/local/schema/task_schema.dart';
 
 class CreateTaskController extends GetxController {
   CreateTaskRepository localRepository;
@@ -13,15 +14,18 @@ class CreateTaskController extends GetxController {
           .obs;
   var priorityValue = 4.obs;
   var switchValue = false.obs;
+  var checkBoxValue = false.obs;
   late TextEditingController editingTaskNameController;
   late TextEditingController editingTaskDescriptionController;
   late TextEditingController editingProjectNameController;
+  late TextEditingController editingCheckListNameController;
 
   var selectedProject = ProjectSchema().obs;
 
   final formKey = GlobalKey<FormState>();
 
   RxList<ProjectSchema> projects = RxList([]);
+  RxList<CheckListSchema> checkList = RxList([]);
 
   @override
   void onInit() {
@@ -31,6 +35,7 @@ class CreateTaskController extends GetxController {
     editingTaskNameController = TextEditingController();
     editingTaskDescriptionController = TextEditingController();
     editingProjectNameController = TextEditingController();
+    editingCheckListNameController = TextEditingController();
     argumentDate.value = Get.arguments;
   }
 
