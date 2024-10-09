@@ -1,6 +1,6 @@
 # TickTask
 
-A ToDo List app for Task and Project Management.
+A ToDo List Application for Task and Project Management.
 
 ## Overview
 
